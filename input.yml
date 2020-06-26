@@ -1,0 +1,12 @@
+---
+- hosts:
+        localhost
+  tasks:
+          - name: taking input from cmd line
+            debug:
+                    msg: installing {{ app }}
+          - name: installing package {{ app }} 
+            apt:
+                    name="{{ app }}"
+                    state=latest
+          

@@ -1,0 +1,19 @@
+---
+- hosts:
+        localhost
+  tasks:
+          - name: removing httpd package
+            yum:
+                    name=httpd
+                    state=absent
+            when:
+                    ansible_distribution == 'CentOS'
+
+          - name: removing apache2 package
+            apt:
+                    name=apache2
+                    state=absent
+                    autoremove=yes
+            when:
+                    ansible_distribution == 'Ubuntu'
+                    

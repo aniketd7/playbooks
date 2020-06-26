@@ -1,0 +1,11 @@
+---
+- hosts:
+        localhost
+  tasks:
+          - name: removing apache2
+            apt:
+                    autoremove=yes
+                    autoclean=yes
+                    name=apache2
+                    state=absent
+

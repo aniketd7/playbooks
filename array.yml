@@ -1,0 +1,13 @@
+---
+##array working but need to mention index all pkgs not taking in single run
+- hosts:
+        localhost
+  vars:
+          pkgs:
+                  - cron 
+                  - mysql
+  tasks:
+          - name: restarting service
+            service:
+                    name="{{ pkgs[0] }}"
+                    state=restarted

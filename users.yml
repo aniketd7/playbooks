@@ -1,0 +1,22 @@
+---
+- hosts:
+        localhost
+  tasks:
+          - name: createing user
+            user:
+                    
+                    name: student
+                    password: "{{ 'abc'|password_hash('sha512') }}"
+                    comment: ansible user
+                    shell: /bin/bash
+                    createhome: yes
+                    home: /home/student
+
+          - name: creating default file in home dir
+            copy:
+                    content: "This is your default home dir\n"
+                    dest: /home/student/student.txt
+
+
+
+

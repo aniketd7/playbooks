@@ -1,0 +1,71 @@
+---
+### To run mysql command using play book Mysql-python package is required.
+#to run mysql-python you might require to install dependancies like 
+#python-dev & libmysqlclient-dev on debian based servers
+#if mysql-python is not getting install using apt-get then need to install using pip
+#to install using pip use #pip3 install MySQL-python 
+#If this also dosent work then use Mysql-python alternative. i.e mysqlclient
+#I got the issue while installing mysql-python so, i used mysqlclient 
+
+- hosts:
+        localhost
+  vars:
+          db_host:
+                  localhost
+          db_usr:
+                  ansible_user
+          db_nm:
+                  ansible_db
+          db_pass:
+                  ansible_pass
+
+  tasks:
+
+          #          - name: Installing  depndancies of MySQL-python package on DEB based Servers
+          #  apt:
+          #          name: "{{item}}"
+          #          state: present
+          #  with_items:
+          #          - python-dev 
+          #          - libmysqlclient-dev
+          #  when:
+          #          ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+          - name: install package using pip
+            shell:
+                    cmd: pip3 install mysqlclient 
+            when:
+                    ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+
+          - name: Installing mysql-python package to run mysql command on RPM based Servers
+            yum:
+                    name: "{{ item }}"
+                    state: present
+            with_items:
+                    - mysql-python
+            when:
+                    ansible_distribution == 'Centos' or ansible_distribution == 'Redhat' or ansible_distribution == 'Amazon Linux'
+
+
+          - name: create db in database using root credentials
+            mysql_db:
+                    login_host: localhost
+                    login_user: root
+                    login_password: root
+                    name: "{{ db_nm }}"
+                    state: present
+
+          - name: Create user for db using root credentials
+            mysql_user:
+                    login_host: localhost
+                    login_user: root
+                    login_password: root
+                    name: "{{ db_usr }}"
+                    host: "{{ db_host }}"
+                    password: "{{ db_pass }}"
+                    priv: '{{ db_nm }}.*:ALL,GRANT'
+                    state: present
+
+            
+

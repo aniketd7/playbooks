@@ -1,0 +1,11 @@
+---
+- hosts:
+        localhost
+  vars:
+          packages: [ 'apache2','vsftpd' ]
+  tasks:
+          - name: uninstalling packages
+            apt:
+                    name= "{{ packages }}"
+                    state=absent
+

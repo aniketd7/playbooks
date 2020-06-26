@@ -1,0 +1,16 @@
+---
+- hosts:
+        localhost
+  tasks:
+          - name: installing vsftpd server
+            apt:
+                    name=vsftpd
+                    state=latest
+            notify:
+                    restart vsftpd
+
+  handlers:
+          - name: restart vsftpd
+            service:
+                    name=vsftpd
+                    state=restarted

@@ -1,0 +1,14 @@
+---
+
+- hosts: localhost
+
+  tasks:
+          - name: apache2 service
+            apt:
+                 name: apache2
+                 state: present
+                 tag: apache2
+
+          - copy:
+                 content: "This is apache2 webserver"
+                 dest: /var/www/html/index.html

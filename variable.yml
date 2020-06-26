@@ -1,0 +1,12 @@
+---
+- hosts:
+        localhost
+  vars:
+          sal: hi.. ani...!!!
+  tasks:
+          - name: testing
+            apt: name=apache2 state=absent
+          msg: "{{ sal }}"
+
+                    
+

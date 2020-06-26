@@ -1,0 +1,9 @@
+---
+- hosts:
+        localhost
+  tasks:
+          - name: restarting services
+            service: name="{{ item }}" state=restarted
+            with_items:
+                    - cron
+                    - mysql

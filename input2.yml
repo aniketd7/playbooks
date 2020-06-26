@@ -1,0 +1,16 @@
+---
+- hosts:
+        localhost
+  vars_prompt:
+          name: app
+          prompt: "Enter the s/w name which you want to install...!!!!"
+
+  tasks:
+          - name: Asking for user input for pkg {{ app }}
+            debug:
+                    msg: "installing the {{ app }}"
+          - name: installing package
+            apt:
+                    name="{{ app }}"
+                    state=latest
+
