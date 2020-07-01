@@ -1,0 +1,10 @@
+---
+- hosts:
+        localhost
+  tasks:
+          - name: Terminate the existing instance
+            ec2:
+                    state: 'absent'
+                    region: us-east-2
+                    instance_id: i-0505ef48a86e14ab5
+

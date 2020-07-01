@@ -1,0 +1,25 @@
+---
+- hosts:
+        localhost
+  connection:
+          local
+  tasks:
+          - name: Spining up new ec2 instance
+            ec2:
+                    instance_type: t2.micro
+                    key_name: DevOpsInstanceMay2020
+                    image: ami-026dea5602e368e96
+                    region: us-east-2
+                    group: default
+                    count: 1
+                    instnace_tags:
+                            Name: ansible_ec2
+                    vpc_subnet_id: subnet-62541e2f
+                    wait: yes
+                    assign_public_ip: yes
+
+          - name: Terminate the instance
+            ec2:
+                    state: 'absent'
+                    region: us-east-2
+                    instance_id: i-0505ef48a86e14ab5
